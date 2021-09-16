@@ -1,7 +1,7 @@
 {
   "user": "kana",
-  "password": "hanazawa",
-  "host": "auth-api.cd8ggqv3baa9.us-east-2.rds.amazonaws.com",
+  "password": "kana",
+  "host": "localhost",
   "port": 5432,
   "database": "forumapi_test"
 }
