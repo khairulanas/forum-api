@@ -1,0 +1,1 @@
+https://kana.my.id
