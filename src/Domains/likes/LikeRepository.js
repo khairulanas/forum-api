@@ -1,5 +1,13 @@
 class LikeRepository {
-  async performLike(threadId, commentId, owner) {
+  async addLike(threadId, commentId, owner) {
+    throw new Error('LIKE_REPOSITORY.METHOD_NOT_IMPLEMENTED');
+  }
+
+  async removeLike(owner) {
+    throw new Error('LIKE_REPOSITORY.METHOD_NOT_IMPLEMENTED');
+  }
+
+  async getLikeByOwner(owner) {
     throw new Error('LIKE_REPOSITORY.METHOD_NOT_IMPLEMENTED');
   }
 }
