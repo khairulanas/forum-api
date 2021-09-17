@@ -19,6 +19,7 @@ describe('GetDetailThreadUseCase', () => {
           username: 'johndoe',
           date: '2021-08-08T07:22:33.555Z',
           content: 'sebuah comment',
+          likeCount: 2,
           replies: [{
             id: 'reply-BErOXUSefjwWGW1Z10Ihk',
             content: '**balasan telah dihapus**',
@@ -37,6 +38,7 @@ describe('GetDetailThreadUseCase', () => {
           username: 'dicoding',
           date: '2021-08-08T07:26:21.338Z',
           content: '**komentar telah dihapus**',
+          likeCount: 0,
           replies: [],
         },
       ],
@@ -82,6 +84,11 @@ describe('GetDetailThreadUseCase', () => {
       is_delete: false,
     }];
 
+    const expectedLikes = [
+      { id: 'like-123', comment_id: 'comment-_pby2_tmXV6bcvcdev8xk' },
+      { id: 'like-124', comment_id: 'comment-_pby2_tmXV6bcvcdev8xk' },
+    ];
+
     /** creating dependency of use case */
     const mockThreadRepository = new ThreadRepository();
 
@@ -92,6 +99,8 @@ describe('GetDetailThreadUseCase', () => {
       .mockImplementation(() => Promise.resolve(expectedComments));
     mockThreadRepository.getReplyByThreadId = jest.fn()
       .mockImplementation(() => Promise.resolve(expectedReplies));
+    mockThreadRepository.getlikeByThreadId = jest.fn()
+      .mockImplementation(() => Promise.resolve(expectedLikes));
 
     /** creating use case instance */
     const detailThreadUseCase = new GetDetailThreadUseCase({
@@ -106,5 +115,6 @@ describe('GetDetailThreadUseCase', () => {
     expect(mockThreadRepository.getThreadById).toBeCalledWith(useCasePayload);
     expect(mockThreadRepository.getCommentByThreadId).toBeCalledWith(useCasePayload);
     expect(mockThreadRepository.getReplyByThreadId).toBeCalledWith(useCasePayload);
+    expect(mockThreadRepository.getlikeByThreadId).toBeCalledWith(useCasePayload);
   });
 });
