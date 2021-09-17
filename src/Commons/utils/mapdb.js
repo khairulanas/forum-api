@@ -19,12 +19,14 @@ const mapDBToDetailComment = ({
   username,
   date,
   content,
+  likeCount,
   replies,
 }) => ({
   id,
   username,
   date,
   content,
+  likeCount,
   replies,
 });
 const mapDBToDetailReply = ({

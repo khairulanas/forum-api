@@ -8,6 +8,7 @@ const ThreadRepositoryPostgres = require('../ThreadRepositoryPostgres');
 const UsersTableTestHelper = require('../../../../tests/UsersTableTestHelper');
 const CommentsTableTestHelper = require('../../../../tests/CommentsTableTestHelper');
 const RepliesTableTestHelper = require('../../../../tests/RepliesTableTestHelper');
+const LikesTableTestHelper = require('../../../../tests/LikesTableTestHelper');
 
 describe('ThreadRepositoryPostgres', () => {
   it('should be instance of ThreadRepository domain', () => {
@@ -160,6 +161,44 @@ describe('ThreadRepositoryPostgres', () => {
 
         // Assert
         expect(replies).toHaveLength(2);
+      });
+    });
+
+    describe('getlikeByThreadId', () => {
+      it('should return array of like in Comment in thread', async () => {
+        // Arrange
+        await UsersTableTestHelper.addUser({ id: 'user-123' });
+        await ThreadsTableTestHelper.addThread({
+          id: 'thread-123',
+          title: 'kanaha',
+          body: 'magical mode',
+          owner: 'user-123',
+        });
+        await CommentsTableTestHelper.addComment({
+          id: 'comment-123',
+          threadId: 'thread-123',
+          owner: 'user-123',
+        });
+        await CommentsTableTestHelper.addComment({
+          id: 'comment-321',
+          threadId: 'thread-123',
+          date: '2021-09-08T07:59:48.766Z',
+          isDelete: true,
+          owner: 'user-123',
+        });
+        await LikesTableTestHelper.addLike({
+          id: 'like-123',
+          threadId: 'thread-123',
+          commentId: 'comment-123',
+          owner: 'user-123',
+        });
+        const threadRepositoryPostgres = new ThreadRepositoryPostgres(pool, {});
+
+        // Action
+        const likes = await threadRepositoryPostgres.getlikeByThreadId('thread-123');
+
+        // Assert
+        expect(likes).toHaveLength(1);
       });
     });
   });
