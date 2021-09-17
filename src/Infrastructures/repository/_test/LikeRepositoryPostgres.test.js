@@ -40,7 +40,6 @@ describe('LikeRepositoryPostgres', () => {
           .addLike('thread-123', 'comment-123', 'user-123');
 
         // Assert
-        console.log(addedLike);
         expect(addedLike.status).toStrictEqual('success');
       });
       it('should throw NotFoundError when thread not found', async () => {

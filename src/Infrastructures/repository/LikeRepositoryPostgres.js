@@ -45,11 +45,7 @@ class LikeRepositoryPostgres extends LikeRepository {
       text: 'DELETE FROM likes WHERE id = $1',
       values: [id],
     };
-    const result = await this._pool.query(query);
-
-    if (!result.rowCount) {
-      throw new NotFoundError('like tidak ditemukan');
-    }
+    await this._pool.query(query);
 
     return { status: 'success' };
   }
