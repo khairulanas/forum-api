@@ -49,6 +49,16 @@ class ThreadRepositoryPostgres extends ThreadRepository {
     return resReplies.rows;
   }
 
+  async getlikeByThreadId(threadId) {
+    const likesQuery = {
+      text: `SELECT * FROM likes
+          WHERE thread_id = $1`,
+      values: [threadId],
+    };
+    const resRlikes = await this._pool.query(likesQuery);
+    return resRlikes.rows;
+  }
+
   async getThreadById(threadId) {
     const query = {
       text: `SELECT threads.*, users.username 
