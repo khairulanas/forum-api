@@ -9,7 +9,7 @@ const LikesTableTestHelper = {
     owner = 'user-123',
   }) {
     const query = {
-      text: 'INSERT INTO likes VALUES($1, $2, $3, $4,)',
+      text: 'INSERT INTO likes VALUES($1, $2, $3, $4)',
       values: [id, threadId, commentId, owner],
     };
 
